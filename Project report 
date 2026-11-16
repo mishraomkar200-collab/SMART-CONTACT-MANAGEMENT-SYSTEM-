@@ -1,0 +1,131 @@
+SMART CONTACT MANAGEMENT SYSTEM
+Minor Project Report
+C, C++ with DSA Training Program — September 2026 Batch
+Student Name: Omkar Mishra
+Student ID: DSA-A3/JY-11262
+Submitted to: support@internselite.com (Pratham Saxena)
+Developed using C++17, Object-Oriented Programming, Data Structures and Algorithms, and file handling.
+1. Introduction
+The Smart Contact Management System is a menu-driven console application designed to store and manage contact information. It allows users to create, display, search, update, delete, and sort contacts while preserving data between program runs.
+2. Problem Statement
+Manual contact management can make records difficult to search, update, and maintain. This project provides a structured solution with unique IDs, phone-number duplicate checks, validation, linked-list storage, and persistent file handling.
+persistent file handling.
+3. Objectives
+Implement a Contact class using encapsulation.
+Use a dynamically allocated singly linked list.
+Provide ID, name, and phone search.
+Implement update, deletion, and sorting operations.
+Validate user input and manage edge cases.
+Store records in a local file and reload them at startup.
+Explain the algorithmic complexity of core operations.
+Contact fields include ID, full name, phone number, email, city, and optional notes.
+The system provides the following menu options:
+Add Contact
+View Contact
+Search Contact
+Update Contact
+Delete Contact
+Sort by Name
+Sort by ID
+Save
+Exit
+Duplicate IDs are prevented through automatic ID assignment. Duplicate phone numbers are rejected after normalizing phone digits. Empty lists and missing records are handled with clear messages.
+5.Technology Stack
+C++17
+Classes and encapsulation
+std::string
+Singly linked list and pointers
+Linear search
+Insertion sort
+ifstream/ofstream
+Git and GitHub (repository setup is a student submission step)
+6.System Design and Architecture
+Console menu (main.cpp) collects user inputs and calls ContactList operations.
+ContactList owns linked-list nodes and manages create/search/update/delete/sort/persistence logic.
+Contact encapsulates each record's fields.
+Data is persisted in:
+data/contacts.txt
+The architecture separates the data model, list-management logic, and menu interaction.
+7.Class Description
+Contact:
+Private fields for ID, name, phone, email, city, and notes; getters and setters expose controlled access.
+ContactList:
+Owns head pointer, next generated ID, and contact count. Its nested Node contains Contact data and a pointer to the next node.
+The destructor traverses and deletes all nodes to avoid memory leaks.
+8.Data Structures and Algorithms
+Singly Linked List:
+Dynamic storage with Node .
+Linear Search:
+Traverses nodes for ID or phone; name search checks a substring.
+Insertion Sort:
+Temporarily collects node pointers into a vector and shifts Contact values in sorted order. The linked nodes' links are not changed.
+File Persistence:
+Uses sequential line processing with pipe delimiters and backslash escaping.
+9.Let n be the number of contacts.
+Operation Time Complexity Auxiliary Space
+Add O(n) O(1)
+Display O(n) O(1)
+Search ID/Phone O(n) O(1)
+Search Name O(n·m) approximately —
+Update/Delete O(n) O(1)
+Sort by Name/ID O(n²) worst case O(n)
+Save O(n) —
+Load O(n) O(n)
+Here, m represents the query length.
+10. File Handling and Data Integrity
+The file is data/contacts.txt.
+Each record contains six fields separated by |.
+Backslash escapes pipe, backslash, newline, and carriage return.
+Startup loads records; malformed rows and duplicate ID/phone rows are skipped.
+The save routine reports file-open and write failures. Saving on the explicit Save menu and on Exit preserves the data in normal operation.
+11. Input Validation
+The application checks:
+Numeric menu input.
+Non-empty names.
+Phone length (7–15 digits).
+Duplicate phone numbers.
+A basic email structure when an email is supplied.
+Update operations validate before applying changes. Deletion requires user confirmation.
+12. Test Plan and Test Results
+Test cases are supplied in test_cases/Test_Cases.md.
+They cover:
+Successful and unsuccessful CRUD operations.
+Duplicate phone checks.
+Empty and one-node lists.
+Deletion of first/last/sole nodes.
+Search and sorting.
+Malformed data rows.
+Input errors and persistence.
+Actual result and Pass/Fail fields are intentionally left for the student to complete after compiling and running in their environment.
+13. Sample Data and Output
+Sample records are provided in data/contacts.txt:
+Aarav Mishra
+Riya Das
+Kunal Patnaik
+When the program launches, it reports how many records were loaded.
+The menu presents options 1 through 9.
+Use the README compilation command to run the application and capture terminal screenshots for the submission.
+14. Challenges and Solutions
+Managing pointer ownership is addressed with a clear linked-list destructor and delete operations.
+Duplicate phone comparison normalizes to digits.
+Sorting uses a temporary node-pointer vector to avoid changing linked-list topology.
+File records use escaping so delimiters in text fields do not corrupt the format.
+15.Limitations and Future Enhancements
+The current system is console-based, stores data in a single local text file, and uses basic email validation.
+Future enhancements may include:
+Contact categories.
+Favorites.
+Case-insensitive search.
+An unordered_map index.
+A recent-contact stack.
+A graphical interface.
+16.Conclusion
+The project demonstrates practical C++17 and DSA concepts through a modular contact manager.
+It uses classes, pointers, a linked list, searching, sorting, validation, and file handling.
+The student should compile, execute, verify test cases, take screenshots, and prepare to explain design decisions during evaluation.
+17.References
+Minor & Major Project Guidelines — C, C++ with DSA Training Program, September 2026 Batch (provided project guideline PDF).
+C++17 compiler documentation and standard library references may be consulted for implementation details.
+Appendix A — Build Command
+Use the following command to compile the project:
+g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude src/main.cpp src/Contact.cpp src/ContactList.cpp -o sma
